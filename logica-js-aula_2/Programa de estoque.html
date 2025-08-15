@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Controle de Estoque</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0a0a0a;
+      text-align: center;
+      padding-top: 100px;
+    }
+    h1 {
+      color: #ffffff;
+      font-size: 36px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Controle de Estoque</h1>
+</body>
+<script>
+alert("Olá, tudo bem? Aqui é um Programa de Estoque.");
+
+let estoque = {}; // objeto para armazenar equipamentos e quantidades
+let opcao = ""; // Opções para selecionar no inicio
+
+while (opcao !== "4") {
+    opcao = prompt(
+        "Por favor selecione uma opção:\n" +
+        "1. Adicionar Equipamento\n" +
+        "2. Vender Equipamento\n" +
+        "3. Exibir Estoque\n" +
+        "4. Sair"
+    );
+
+    if (opcao === "1") {
+        let equipamento = prompt("Qual equipamento deseja adicionar?");
+        let quantidade = parseInt(prompt("Qual a quantidade?"));
+
+        if (!equipamento || isNaN(quantidade) || quantidade <= 0) {
+            alert("Dados inválidos. valor deve ser numérico e maior que 0.");
+        } else {
+            equipamento = equipamento.toLowerCase(); // transforma em minúscula
+            if (estoque[equipamento]) {
+                estoque[equipamento] += quantidade;
+            } else {
+                estoque[equipamento] = quantidade;
+            }
+            alert(`${quantidade}x ${equipamento} adicionado ao estoque.`);
+        }
+
+    } else if (opcao === "2") {
+        let equipamento = prompt("Qual equipamento foi vendido?");
+        let quantidade = parseInt(prompt("Qual a quantidade?"));
+
+        if (!equipamento || isNaN(quantidade)) {
+            alert("Dados inválidos. Operação cancelada.");
+        } else {
+            equipamento = equipamento.toLowerCase(); // transforma em minúscula
+        } 
+        if (!estoque[equipamento] || estoque[equipamento] < quantidade) {
+            alert("Estoque insuficiente ou equipamento não encontrado.");
+        } else {
+            estoque[equipamento] -= quantidade;
+            alert(`${quantidade}x ${equipamento} vendido com sucesso.`);
+        }
+
+    } else if (opcao === "3") {
+        let lista = "Estoque Atual:\n";
+        if (Object.keys(estoque).length === 0) {
+            lista += "Estoque vazio.";
+        } else {
+            for (let item in estoque) {
+                lista += `${item}: ${estoque[item]}\n`;
+            }
+        }
+        alert(lista);
+
+    } else if (opcao === "4") {
+        alert("Programa encerrado.");
+
+    } else {
+        alert("Opção inválida. Tente novamente.");
+    }
+}
+
+</script>
+</html>
